@@ -1,0 +1,15 @@
+@model Wedding
+@await Html.PartialAsync("_NavBar")
+
+<h1>@Model.WedderOne & @Model.WedderTwo<span>'s wedding</span></h1>
+
+<div>
+    <h3 class="mb-5">@Model.Date</h3>
+    <div>
+        <h4 class="mb-5">List of Guests</h4>
+        @foreach (RSVP rsvp in Model.RSVPs)
+        {
+            <p>@rsvp.User.FirstName @rsvp.User.LastName</p> 
+        }
+    </div>
+</div>

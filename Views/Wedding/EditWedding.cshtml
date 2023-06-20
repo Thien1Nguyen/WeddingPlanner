@@ -1,0 +1,29 @@
+@model Wedding
+@await Html.PartialAsync("_NavBar")
+
+<form 
+    asp-controller="Wedding" 
+    asp-action="UpdateWedding"
+    asp-route-weddingId="@Model.WeddingId"
+    method="post"
+>
+    <div class="mb-3">
+        <label asp-for="WedderOne">WedderOne <span class="text-danger" asp-validation-for="WedderOne"></span> </label>
+        <input asp-for="WedderOne" value="@Model.WedderOne" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="WedderTwo">WedderTwo <span class="text-danger" asp-validation-for="WedderTwo"></span> </label>
+        <input asp-for="WedderTwo" value="@Model.WedderTwo" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Date">Date Of Wedding <span class="text-danger" asp-validation-for="Date"></span> </label>
+        <input asp-for="Date" type="datetime" value="@Model.Date"  class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address">Address <span class="text-danger" asp-validation-for="Address"></span> </label>
+        <input asp-for="Address" value="@Model.Address"  class="form-control">
+    </div>
+    <input hidden asp-for="UserId" value='@Context.Session.GetInt32("UUID")'>
+
+    <button>Create</button>
+</form>

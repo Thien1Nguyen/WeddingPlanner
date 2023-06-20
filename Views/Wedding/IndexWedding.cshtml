@@ -1,0 +1,65 @@
+@model List<Wedding>
+
+@await Html.PartialAsync("_NavBar")
+
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Wedding of</th>
+            <th scope="col">Date</th>
+            <th scope="col">Guest Count</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Wedding wedding in Model)
+        {
+            <tr>
+                <td><a asp-action="ShowWedding" asp-controller="Wedding" asp-route-weddingId="@wedding.WeddingId"><span style="color: plum;">@wedding.WedderOne</span> ❤️ @wedding.WedderTwo </a></td>
+                <td>@wedding.Date</td>
+                <td>@wedding.RSVPs.Count()</td>
+                <td>
+                    @{
+                        if(wedding.UserId == Context.Session.GetInt32("UUID"))
+                        {   
+                            <div class="d-flex">
+                                <a asp-action="EditWedding" asp-controller="Wedding" asp-route-weddingId="@wedding.WeddingId" class="btn btn-warning me-2">Edit</a>
+                                <form 
+                                    asp-controller="Wedding" 
+                                    asp-action="DeleteWedding" 
+                                    asp-route-weddingId="@wedding.WeddingId"
+                                    method="post"
+                                >
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        }
+                        else{
+                            bool alreadyRSVP = wedding.RSVPs.Any(rsvp => rsvp.UserId == Context.Session.GetInt32("UUID"));
+
+                            <form 
+                                asp-controller="RSVP" 
+                                asp-action="ToggleRSVP" 
+                                asp-route-weddingId="@wedding.WeddingId"
+                                method="post"
+                            >
+                                <button>
+                                    @if(alreadyRSVP)
+                                    {
+                                        <span>Un-RSVP</span>
+                                    }
+                                    else{
+                                        <span>RSVP</span>
+                                    }
+                                </button>
+                            </form>
+                            
+                        }
+                    }
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+

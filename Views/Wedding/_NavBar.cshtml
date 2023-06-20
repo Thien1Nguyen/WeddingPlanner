@@ -1,0 +1,12 @@
+<div class="d-flex justify-content-between border-bottom border-3 border-dark p-3">
+    <div class="">
+        <h1>Welcome @Context.Session.GetString("UUName")!</h1>
+    </div>
+    <div class="d-flex">
+        <a asp-controller="Wedding" asp-action="IndexWedding" class="btn btn-outline-primary me-3">Home</a>
+        <a asp-controller="Wedding" asp-action="NewWedding" class="btn btn-outline-warning me-3">Plan a Wedding</a>
+        <form asp-controller="Home" asp-action="Logout" method="post">
+            <button class="btn btn-outline-danger">Log Out</button>
+        </form>
+    </div>
+</div>
